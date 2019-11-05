@@ -7,6 +7,11 @@ addition()
 {
 c=a+b;
 }
+
+substraction()
+{
+c=a+b;
+}
 multiplication()
 {
 c=a*b;
