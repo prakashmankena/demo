@@ -1,0 +1,27 @@
+---
+ hosts: all 
+ remote_user: yes
+ tasks:
+  - name: to update repo 
+    raw: apt-get -y update
+    when: ansible_distribution=="Ubuntu"
+    ignore_error: yes
+
+  - name: to install tomcat 
+    apt: name=tomcat7 state=latest 
+    when: ansible_distribution==Ubuntu
+    notify:
+     - start tomcat service 
+
+
+  - name: to copy war file 
+    copy: 
+     src: /root/sample.war
+     dest: /var/lib/tomcat7/webapps/sample.war
+    debug:
+     - msg: war file deployed 
+
+  handler:
+   - name: start tomcat service
+     service: name=tomcat7 state=restarted 
+
